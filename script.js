@@ -16,31 +16,20 @@ var generatePassword = function () {
   console.log(1);
   return;
 };
-
-var lowerCase,
-  upperCase,
-  numeric,
-  special,
-  criteria = [],
+// Initialise variables
+var criteria = [],
   randomChar,
   charLength = 0,
   randomPassword = [],
-  flag,
-  character;
-// initiliase the character range
-lowerCase = "abcdefghijklmnopqrstuvwxyz";
-upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-numeric = "0123456789";
-special = "!@#$%^&*()_+-={}|;:'<,>.?/";
+  flag;
 
-// generate random number
-var getRandomChar = function (charSet) {
-  randomChar = charSet.charAt(Math.floor(Math.random() * charSet.length));
-  console.log(randomChar);
-  return randomChar;
-};
+// Initiliase the characters range
+var lowerCase = "abcdefghijklmnopqrstuvwxyz";
+var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var numeric = "0123456789";
+var special = "!@#$%^&*()_+-={}|;:'<,>.?/";
 
-// get password length
+// Ask - desired length of password - must be between 8 to 128 characters
 var getPasswordLength = function () {
   while (charLength < 8 || charLength > 128) {
     charLength = window.prompt(
@@ -48,7 +37,8 @@ var getPasswordLength = function () {
     );
   }
 };
-// confirm lowercase
+
+// Confirm - include lowercase characters
 var includeLowerCase = function () {
   if (
     window.confirm(
@@ -58,7 +48,8 @@ var includeLowerCase = function () {
     criteria.push(lowerCase);
   }
 };
-// confirm uppercase
+
+// Confirm - include uppercase characters
 var includeUpperCase = function () {
   if (
     window.confirm(
@@ -68,7 +59,8 @@ var includeUpperCase = function () {
     criteria.push(upperCase);
   }
 };
-// confirm numeric
+
+// Confirm - include numeric characters
 var includeNumeric = function () {
   if (
     window.confirm(
@@ -78,7 +70,8 @@ var includeNumeric = function () {
     criteria.push(numeric);
   }
 };
-// confirm special
+
+// Confirm - include special characters
 var includeSpecial = function () {
   if (
     window.confirm(
@@ -88,33 +81,29 @@ var includeSpecial = function () {
     criteria.push(special);
   }
 };
-// validate criteria
+
+// Validate - at least one charcter type must be included
 var validateCriteria = function () {
   while (criteria.length < 1) {
     includeLowerCase(), includeUpperCase(), includeNumeric(), includeSpecial();
   }
 };
-// generate password
+
+// Select random chractor from string
+var getRandomChar = function (charSet) {
+  randomChar = charSet.charAt(Math.floor(Math.random() * charSet.length));
+  return randomChar;
+};
+
+// Get user input and generate password
 var generatePassword = function () {
   getPasswordLength();
-  console.log(charLength);
   validateCriteria();
+
   for (let i = 0; i < charLength; i++) {
     flag = criteria[Math.floor(Math.random() * criteria.length)];
-    // character = getRandomChar(flag);
     randomPassword.push(getRandomChar(flag));
-    console.log(flag);
   }
+
   return randomPassword.join("");
 };
-// console.log(range);
-// console.log(range.length);
-// console.log(randomNum);
-// getPasswordLength();
-// includeLowerCase(), includeUpperCase(), includeNumeric(), includeSpecial();
-console.log(typeof charLength);
-console.log(charLength < 8 && charLength > 128);
-// getPasswordLength();
-// validateCriteria();
-console.log(criteria);
-console.log(randomPassword);
