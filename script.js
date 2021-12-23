@@ -88,6 +88,12 @@ var includeSpecial = function () {
 var validateCriteria = function () {
   while (criteria.length < 1) {
     includeLowerCase(), includeUpperCase(), includeNumeric(), includeSpecial();
+    // Alert user to include at least one chracter set
+    if (criteria.length < 1) {
+      window.alert(
+        "You need to include at least 1 character set out of, \n - Lowercase \n - Uppercase \n - Numeric \n - Special"
+      );
+    }
   }
 };
 
