@@ -23,11 +23,13 @@ var criteria = [],
   randomPassword = [],
   flag;
 
-// Initiliase the characters range
-var lowerCase = "abcdefghijklmnopqrstuvwxyz";
-var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-var numeric = "0123456789";
-var special = "!@#$%^&*()_+-={}|;:'<,>.?/";
+// Initiliase the characters set
+var charSet = {
+  lowerCase: "abcdefghijklmnopqrstuvwxyz",
+  upperCase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  numeric: "0123456789",
+  special: " !\"#$%&'()*+,-./:;<=>?@[]^_`{|}~",
+};
 
 // Ask - desired length of password - must be between 8 to 128 characters
 var getPasswordLength = function () {
@@ -45,7 +47,7 @@ var includeLowerCase = function () {
       "Do you want to include lowercase characters? \n OK - to include \n Cancel - to exempt"
     )
   ) {
-    criteria.push(lowerCase);
+    criteria.push(charSet.lowerCase);
   }
 };
 
@@ -56,7 +58,7 @@ var includeUpperCase = function () {
       "Do you also want to include uppercase characters? \n OK - to include \n Cancel - to exempt"
     )
   ) {
-    criteria.push(upperCase);
+    criteria.push(charSet.upperCase);
   }
 };
 
@@ -67,7 +69,7 @@ var includeNumeric = function () {
       "Do you also want to include numeric characters? \n OK - to include \n Cancel - to exempt"
     )
   ) {
-    criteria.push(numeric);
+    criteria.push(charSet.numeric);
   }
 };
 
@@ -78,7 +80,7 @@ var includeSpecial = function () {
       "And finally do you want to include special characters? \n OK - to include \n Cancel - to exempt"
     )
   ) {
-    criteria.push(special);
+    criteria.push(charSet.special);
   }
 };
 
@@ -90,8 +92,8 @@ var validateCriteria = function () {
 };
 
 // Select random chractor from string
-var getRandomChar = function (charSet) {
-  randomChar = charSet.charAt(Math.floor(Math.random() * charSet.length));
+var getRandomChar = function (str) {
+  randomChar = str.charAt(Math.floor(Math.random() * str.length));
   return randomChar;
 };
 
@@ -99,11 +101,11 @@ var getRandomChar = function (charSet) {
 var generatePassword = function () {
   getPasswordLength();
   validateCriteria();
-
+  // Generate password based on user selected length & criteria
   for (let i = 0; i < charLength; i++) {
     flag = criteria[Math.floor(Math.random() * criteria.length)];
     randomPassword.push(getRandomChar(flag));
   }
-
+  // Join the array items to return the password
   return randomPassword.join("");
 };
